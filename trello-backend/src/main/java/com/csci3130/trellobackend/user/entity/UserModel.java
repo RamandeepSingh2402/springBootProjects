@@ -1,9 +1,9 @@
 package com.csci3130.trellobackend.user.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.csci3130.trellobackend.task.model.TaskModel;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class UserModel {
@@ -18,11 +18,25 @@ public class UserModel {
 
     private String password;
 
+
+    @ManyToMany(targetEntity = TaskModel.class)
+    @JoinColumn(name = "task_mapping")
+    private List<TaskModel> tasks;
+
     public UserModel(String name, String emailId, String password) {
         this.name = name;
         this.emailId = emailId;
         this.password = password;
     }
+
+    public List<TaskModel> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskModel> tasks) {
+        this.tasks = tasks;
+    }
+
     public UserModel(){
 
     }
